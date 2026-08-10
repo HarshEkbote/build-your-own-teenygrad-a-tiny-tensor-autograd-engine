@@ -51,8 +51,13 @@ def make_op_enums():
     
     return UnaryOps,BinaryOps,ReduceOps,MovementOps
 
-# Step 4 - LazyBuffer (not yet solved)
-# TODO: implement
+# Step 4 - LazyBuffer
+class LazyBuffer:
+    def __init__(self, np_array):
+        # TODO: wrap np_array as an ndarray and expose shape and dtype
+        self._np=np.array(np_array)
+        self.shape=self._np.shape
+        self.dtype=self._np.dtype
 
 # Step 5 - lazybuffer_const (not yet solved)
 # TODO: implement
