@@ -103,8 +103,23 @@ def e(self, op):
 
 LazyBuffer.e = e
 
-# Step 8 - lazybuffer_binary_e (not yet solved)
-# TODO: implement
+# Step 8 - lazybuffer_binary_e
+def lazybuffer_binary_e(self, op, other):
+    if op==BinaryOps.ADD:
+        result= self._np+other._np
+    elif op==BinaryOps.SUB:
+        result=self._np-other._np
+    elif op==BinaryOps.MUL:
+        result=self._np*other._np
+    elif op==BinaryOps.DIV:
+        result=self._np/other._np
+    elif op==BinaryOps.CMPLT:
+        result=(self._np < other._np).astype(np.float32)
+    elif op==BinaryOps.MAX:
+        result=np.maximum(self._np,other._np)
+    else:
+        ValueError("Binary operation not supported.")
+    return LazyBuffer(result)
 
 # Step 9 - lazybuffer_r (not yet solved)
 # TODO: implement
