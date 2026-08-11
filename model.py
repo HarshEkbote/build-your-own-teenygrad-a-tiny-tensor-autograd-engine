@@ -80,8 +80,28 @@ def rand(shape, seed=None):
         ).astype(np.float32)
     )
 
-# Step 7 - lazybuffer_unary_e (not yet solved)
-# TODO: implement
+# Step 7 - lazybuffer_unary_e
+UnaryOps,BinaryOps, ReduceOps, MovementOps=make_op_enums()
+def e(self, op):
+    # TODO: apply a unary elementwise op (NEG, RELU, LOG, EXP, SQRT, SIGMOID)
+    if op==UnaryOps.NEG:
+        result=-self._np
+    elif op==UnaryOps.RELU:
+        result=np.maximum(0,self._np)
+    elif op==UnaryOps.LOG:
+        result=np.log(self._np)
+    elif op==UnaryOps.EXP:
+        result=np.exp(self._np)
+    elif op==UnaryOps.SQRT:
+        result=np.sqrt(self._np)
+    elif op==UnaryOps.SIGMOID:
+        result= 1/(1+np.exp(-self._np))
+    else:
+        raise ValueError("Operation not supported.")
+    
+    return LazyBuffer(result)
+
+LazyBuffer.e = e
 
 # Step 8 - lazybuffer_binary_e (not yet solved)
 # TODO: implement
