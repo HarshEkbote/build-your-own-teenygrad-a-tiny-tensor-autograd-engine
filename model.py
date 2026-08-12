@@ -121,8 +121,16 @@ def lazybuffer_binary_e(self, op, other):
         ValueError("Binary operation not supported.")
     return LazyBuffer(result)
 
-# Step 9 - lazybuffer_r (not yet solved)
-# TODO: implement
+# Step 9 - lazybuffer_r
+def r(self, op, axis):
+    # TODO: reduce the underlying array along axis (SUM or MAX), keeping reduced dims as size 1
+    if op==ReduceOps.SUM:
+        result= np.sum(self._np,axis=axis,keepdims=True)
+    elif op==ReduceOps.MAX:
+        result=np.max(self._np,axis=axis,keepdims=True)
+    else:
+        raise ValueError("Operation not supported")
+    return LazyBuffer(result)
 
 # Step 10 - lazybuffer_reshape (not yet solved)
 # TODO: implement
