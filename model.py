@@ -132,8 +132,11 @@ def r(self, op, axis):
         raise ValueError("Operation not supported")
     return LazyBuffer(result)
 
-# Step 10 - lazybuffer_reshape (not yet solved)
-# TODO: implement
+# Step 10 - lazybuffer_reshape
+def reshape(self, new_shape):
+    # TODO: return a new LazyBuffer with the array reshaped to new_shape
+    result=np.reshape(self._np,new_shape)
+    return LazyBuffer(result)
 
 # Step 11 - lazybuffer_expand (not yet solved)
 # TODO: implement
