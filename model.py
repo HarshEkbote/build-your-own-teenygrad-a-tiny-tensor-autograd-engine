@@ -138,8 +138,11 @@ def reshape(self, new_shape):
     result=np.reshape(self._np,new_shape)
     return LazyBuffer(result)
 
-# Step 11 - lazybuffer_expand (not yet solved)
-# TODO: implement
+# Step 11 - lazybuffer_expand
+def expand(self, new_shape):
+    # TODO: broadcast this buffer's size-1 dims out to new_shape
+    result=np.broadcast_to(self._np,new_shape)
+    return LazyBuffer(result)
 
 # Step 12 - lazybuffer_permute (not yet solved)
 # TODO: implement
