@@ -81,6 +81,7 @@ def rand(shape, seed=None):
     )
 
 # Step 7 - lazybuffer_unary_e
+import numpy as np
 UnaryOps,BinaryOps, ReduceOps, MovementOps=make_op_enums()
 def e(self, op):
     # TODO: apply a unary elementwise op (NEG, RELU, LOG, EXP, SQRT, SIGMOID)
@@ -202,8 +203,15 @@ for _obj in list(globals().values()):
             if _k.__name__ == 'Function':
                 _k.apply = apply
 
-# Step 16 - Neg (not yet solved)
-# TODO: implement
+# Step 16 - Neg
+class Neg(Function):
+    def forward(self, x):
+        # TODO: return a LazyBuffer holding the elementwise negation of x
+        return x.e(UnaryOps.NEG)
+
+    def backward(self, grad_output):
+        # TODO: return the negated incoming gradient
+        return grad_output.e(UnaryOps.NEG)
 
 # Step 17 - Relu (not yet solved)
 # TODO: implement
