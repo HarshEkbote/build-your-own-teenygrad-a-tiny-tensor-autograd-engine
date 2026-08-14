@@ -120,7 +120,9 @@ def lazybuffer_binary_e(self, op, other):
         result=np.maximum(self._np,other._np)
     else:
         ValueError("Binary operation not supported.")
-    return LazyBuffer(result)
+    return LazyBuffer(result) 
+
+LazyBuffer.lazybuffer_binary_e = lazybuffer_binary_e
 
 # Step 9 - lazybuffer_r
 def r(self, op, axis):
@@ -213,8 +215,18 @@ class Neg(Function):
         # TODO: return the negated incoming gradient
         return grad_output.e(UnaryOps.NEG)
 
-# Step 17 - Relu (not yet solved)
-# TODO: implement
+# Step 17 - Relu
+class Relu(Function):
+    def forward(self, x):
+        # TODO: apply the rectified linear unit to lazy buffer x and cache the result
+       self.x=x
+       return x.e(UnaryOps.RELU)
+    
+    def backward(self, grad_output):
+        # TODO: route the upstream gradient only through positions that were positive
+        zeros=LazyBuffer.const(0.0,self.x.shape)
+        mask=zeros.lazybuffer_binary_e(BinaryOps.CMLPT,self.x)
+        return grad_output.lazybuffer_binary_e(BinaryOps.MUL,mask)
 
 # Step 18 - Log (not yet solved)
 # TODO: implement
