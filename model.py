@@ -225,7 +225,7 @@ class Relu(Function):
     def backward(self, grad_output):
         # TODO: route the upstream gradient only through positions that were positive
         zeros=LazyBuffer.const(0.0,self.x.shape)
-        mask=zeros.lazybuffer_binary_e(BinaryOps.CMLPT,self.x)
+        mask=zeros.lazybuffer_binary_e(BinaryOps.CMPLT,self.x)
         return grad_output.lazybuffer_binary_e(BinaryOps.MUL,mask)
 
 # Step 18 - Log (not yet solved)
