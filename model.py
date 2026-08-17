@@ -287,8 +287,21 @@ class Sigmoid(Function):
             derivative
         )
 
-# Step 22 - Add (not yet solved)
-# TODO: implement
+# Step 22 - Add
+class Add(Function):
+    def forward(self, x, y):
+        # TODO: return the elementwise sum of LazyBuffers x and y
+        return x.lazybuffer_binary_e(
+            BinaryOps.ADD,
+            y
+        )
+
+    def backward(self, grad_output):
+        # TODO: route grad_output to each input that requires a gradient
+        return (
+            grad_output if self.needs_input_grad[0] else None,
+            grad_output if self.needs_input_grad[1] else None
+        )
 
 # Step 23 - Sub (not yet solved)
 # TODO: implement
