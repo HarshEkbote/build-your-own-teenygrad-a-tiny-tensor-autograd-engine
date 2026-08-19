@@ -135,6 +135,8 @@ def r(self, op, axis):
         raise ValueError("Operation not supported")
     return LazyBuffer(result)
 
+LazyBuffer.r=r
+
 # Step 10 - lazybuffer_reshape
 def reshape(self, new_shape):
     # TODO: return a new LazyBuffer with the array reshaped to new_shape
@@ -365,8 +367,11 @@ class Div(Function):
             ) if self.needs_input_grad[1] else None,
         )
 
-# Step 26 - sum_function_forward (not yet solved)
-# TODO: implement
+# Step 26 - sum_function_forward
+class Sum(Function):
+    def forward(self, x, axis):
+        # TODO: Reduce x with ReduceOps.SUM over axis (keepdims) and cache shape/axis.
+        return x.r(ReduceOps.SUM,axis)
 
 # Step 27 - sum_function_backward (not yet solved)
 # TODO: implement
