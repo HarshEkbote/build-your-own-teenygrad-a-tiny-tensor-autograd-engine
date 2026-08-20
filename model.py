@@ -387,9 +387,10 @@ Sum.backward=backward
 class Max(Function):
     def forward(self, x, axis):
         # TODO: reduce x with the MAX reduce op along axis and cache for backward
-        self.input_shape=x.shape
+        self.x=x
         self.axis=axis
-        return x.r(ReduceOps.MAX,axis=axis)
+        self.ret=x.r(ReduceOps.MAX,axis=axis)
+        return self.ret
 
 # Step 29 - max_function_backward (not yet solved)
 # TODO: implement
