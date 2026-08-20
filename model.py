@@ -380,7 +380,7 @@ class Sum(Function):
 # Step 27 - sum_function_backward
 def backward(self, grad_output):
     # TODO: broadcast the summed gradient back to the original input shape
-    return grad_output.expand(self.input_size)
+    return grad_output.expand(self.input_shape)
 Sum.backward=backward
 
 # Step 28 - max_function_forward (not yet solved)
