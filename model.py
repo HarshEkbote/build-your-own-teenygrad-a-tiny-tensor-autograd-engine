@@ -414,8 +414,16 @@ def backward(self, grad_output):
 
 Max.backward = backward
 
-# Step 30 - Reshape (not yet solved)
-# TODO: implement
+# Step 30 - Reshape
+class Reshape(Function):
+    def forward(self, x, shape):
+        # TODO: cache the input shape and return x reshaped to shape
+        self.input_shape=x.shape
+        return x.reshape(shape)
+
+    def backward(self, grad_output):
+        # TODO: reshape the gradient back to the cached input shape
+        return grad_output.reshape(self.input_shape)
 
 # Step 31 - expand_function_forward (not yet solved)
 # TODO: implement
