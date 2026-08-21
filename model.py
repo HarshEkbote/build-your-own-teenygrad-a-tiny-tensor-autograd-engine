@@ -159,6 +159,8 @@ def permute(self, order):
     result=self._np.transpose(order)
     return LazyBuffer(result)
 
+LazyBuffer.permute=permute
+
 # Step 13 - Function
 class Function:
     def __init__(self, *tensors):
@@ -443,8 +445,17 @@ def expand_function_backward(ctx, grad_output):
         grad_output=grad_output.r(ReduceOps.SUM,axis=reduce_axes)
     return grad_output.reshape(ctx.input_shape)
 
-# Step 33 - permute_function_forward_backward (not yet solved)
-# TODO: implement
+# Step 33 - permute_function_forward_backward
+def permute_funtion_forward(ctx,x,order):
+    ctx.order=order
+    return x.permute(order)
+
+def permute_fucntion_backward(ctx,grad_output):
+    return grad_output.permute(argsort(ctx.order))
+
+def permute_function_forward_backward():
+    # TODO: return (forward, backward); forward reorders axes, backward inverts the order
+    return permute_funtion_forward,permute_fucntion_backward
 
 # Step 34 - Tensor (not yet solved)
 # TODO: implement
