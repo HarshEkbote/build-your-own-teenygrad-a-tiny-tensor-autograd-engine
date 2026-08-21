@@ -457,8 +457,39 @@ def permute_function_forward_backward():
     # TODO: return (forward, backward); forward reorders axes, backward inverts the order
     return permute_funtion_forward,permute_fucntion_backward
 
-# Step 34 - Tensor (not yet solved)
-# TODO: implement
+# Step 34 - Tensor
+class Tensor:
+    def __init__(self, data, requires_grad=False):
+        # TODO: wrap data in a LazyBuffer and store grad/ctx bookkeeping
+        if isinstance(data,LazyBuffer):
+            self.lazydata=data
+        else:
+            self.lazydata=LazyBuffer(np.array(data,dtype=np.float32))
+
+        self.requires_grad=requires_grad
+        self.grad=None
+        self._ctx=None
+
+    @property
+    def data(self):
+        # TODO: return the underlying LazyBuffer
+        return self.lazydata
+
+    @data.setter
+    def data(self, value):
+        # TODO: replace the underlying LazyBuffer
+        self.lazydata=value
+
+    @property
+    def shape(self):
+        return self.lazydata.shape
+
+    @property
+    def dtype(self):
+        return self.lazydata.dtype
+
+    def numpy(self):
+        return self.lazydata._np
 
 # Step 35 - tensor_from_data (not yet solved)
 # TODO: implement
